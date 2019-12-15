@@ -13,7 +13,7 @@ include_once __DIR__ . '/../../src/app/modelORM/empleadoController.php';
 return function (App $app) {
   $container = $app->getContainer();
 
-  /*$app->group('/empleado', function () {
+  $app->group('/empleado', function () {
 
     $this->get('/', EmpleadoController::class . ':traerTodos');
 
@@ -23,7 +23,7 @@ return function (App $app) {
 
     $this->delete('/', EmpleadoController::class . ':borrarUno');
 
-  });*/
+  });
 
 };
 

@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
@@ -30,7 +27,7 @@ return [
         'db' => [
            'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'cdcol',
+            'database' => 'tp_final_comanda',
             'username' => 'root',
             'password' => '',
             'charset'   => 'utf8',
