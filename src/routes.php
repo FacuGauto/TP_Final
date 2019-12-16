@@ -23,6 +23,14 @@ return function (App $app) {
     $routes = require __DIR__ . '/../src/routes/routesProducto.php';
     $routes($app);
 
+    // Rutas Mesa
+    $routes = require __DIR__ . '/../src/routes/routesMesa.php';
+    $routes($app);
+
+    // Rutas Pedido
+    $routes = require __DIR__ . '/../src/routes/routesPedido.php';
+    $routes($app);
+
     // Rutas JWT
     $routes = require __DIR__ . '/../src/routes/routesJWT.php';
     $routes($app);

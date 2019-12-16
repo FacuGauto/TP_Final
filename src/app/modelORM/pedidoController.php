@@ -22,11 +22,14 @@ class PedidoController implements IApiControler
   }
   
   public function TraerUno($request, $response, $args) {
-    //complete el codigo
-    $arry_params = $request->getParsedBody();
-    var_dump($arry_params);
-    //$newResponse = $response->withJson("sin completar", 200);  
-    //return $newResponse;
+    $id = $args["id"];
+    $pedido = Pedido::find($id);
+    if($pedido != null){
+      $newResponse = $response->withJson($pedido, 200);
+    }else{
+      $newResponse = $response->withJson("No existe el pedido", 200);
+    }
+    return $newResponse;
   }
   
   public function CargarUno($request, $response, $args) {

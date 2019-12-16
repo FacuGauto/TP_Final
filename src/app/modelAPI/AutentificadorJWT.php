@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use Firebase\JWT\JWT;
+use Exception;
 
 class AutentificadorJWT
 {
@@ -18,7 +19,7 @@ class AutentificadorJWT
         */
         $payload = array(
         	'iat'=>$ahora,
-            'exp' => $ahora + (60),
+            'exp' => $ahora + (100060),
             'aud' => self::Aud(),
             'data' => $datos,
             'app'=> "API REST CD UTN FRA"
@@ -28,6 +29,7 @@ class AutentificadorJWT
     
     public static function VerificarToken($token)
     {
+        $valido = false;
         if(empty($token))
         {
             throw new Exception("El token esta vacio.");
@@ -35,20 +37,21 @@ class AutentificadorJWT
         // las siguientes lineas lanzan una excepcion, de no ser correcto o de haberse terminado el tiempo       
       
       try {
-            $decodificado = JWT::decode(
-            $token,
-            self::$claveSecreta,
-            self::$tipoEncriptacion
-        );
+          $decodificado = JWT::decode(
+              $token,
+              self::$claveSecreta,
+              self::$tipoEncriptacion
+            );
+            $valido = true;
         } catch (Exception $e) {
             throw $e;
-        } 
-        
+        }
         // si no da error,  verifico los datos de AUD que uso para saber de que lugar viene  
         if($decodificado->aud !== self::Aud())
         {
             throw new Exception("No es el usuario valido");
         }
+        return $valido;
     }
     
    

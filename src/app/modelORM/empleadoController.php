@@ -20,13 +20,37 @@ class EmpleadoController implements IApiControler
     $newResponse = $response->withJson($todosLosEmpleados, 200);  
     return $newResponse;
   }
+
+  public function Login($request, $response, $args) {
+    $array_params = $request->getParsedBody();
+    $usuario = $array_params["usuario"];
+    $clave = $array_params["clave"];
+    $empleado = empleado::where('usuario','=',$usuario)
+      ->select('id','nombre','apellido','id_tipo_empleado','usuario','clave')
+      ->get()
+      ->toArray();
+    $usuarioValido = strcasecmp($empleado[0]["usuario"],$usuario);
+    $claveValida = strcasecmp($empleado[0]["clave"],crypt($clave,'st'));
+
+    if(count($empleado) == 1 && $claveValida == 0 && $claveValida == 0){
+      unset($empleado[0]['clave']);
+      $token = AutentificadorJWT::CrearToken($empleado[0]);
+      $newResponse = $response->withJson($token, 200);
+    }else{
+      $newResponse = $response->withJson("No se pudo iniciar sesion, error al generar el token, vuelva a intentarlo", 200);
+    }
+    return $newResponse;
+  }
   
   public function TraerUno($request, $response, $args) {
-    //complete el codigo
-    $arry_params = $request->getParsedBody();
-    var_dump($arry_params);
-    //$newResponse = $response->withJson("sin completar", 200);  
-    //return $newResponse;
+    $id = $args["id"];
+    $empleado = Empleado::find($id);
+    if($empleado != null){
+      $newResponse = $response->withJson($empleado, 200);
+    }else{
+      $newResponse = $response->withJson("No existe el empleado", 200);
+    }
+    return $newResponse;
   }
   
   public function CargarUno($request, $response, $args) {
@@ -65,7 +89,6 @@ class EmpleadoController implements IApiControler
   
   public function ModificarUno($request, $response, $args) {
     $array_params = $request->getParsedBody();
-
     if(array_key_exists("id", $array_params))
     {
       $id = $array_params['id'];
