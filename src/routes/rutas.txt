@@ -2,3 +2,12 @@ http://localhost:8080/empleado/
 http://localhost:8080/empleado/login  -> usuario:cristian clave:1234
 http://localhost:8080/empleado/ ->put headers token
 http://localhost:8080/empleado/ ->delete
+
+
+
+
+files.000webhost.com
+lacomanda2c2019gauto
+
+
+lacomanda2C2019Gauto.000webhostapp.com
