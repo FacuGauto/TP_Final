@@ -21,9 +21,13 @@ return function (App $app) {
 
     $this->post('/', PedidoController::class . ':cargarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
-    $this->put('/', PedidoController::class . ':modificarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
+    //$this->put('/', PedidoController::class . ':modificarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
     $this->delete('/', PedidoController::class . ':borrarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
+
+    $this->post('/preparacion', PedidoController::class . ':prepararPedido')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
+
+    $this->post('/listo', PedidoController::class . ':listoParaServirPedido')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
   });
 
