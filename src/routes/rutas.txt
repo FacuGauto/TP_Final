@@ -1,0 +1,4 @@
+http://localhost:8080/empleado/
+http://localhost:8080/empleado/login  -> usuario:cristian clave:1234
+http://localhost:8080/empleado/ ->put headers token
+http://localhost:8080/empleado/ ->delete
