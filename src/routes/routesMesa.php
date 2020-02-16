@@ -15,7 +15,7 @@ return function (App $app) {
 
   $app->group('/mesa', function () {
 
-    $this->get('/', MesaController::class . ':traerTodos');
+    $this->get('/', MesaController::class . ':traerTodos')->add(Middleware::class . ":ValidarToken");
 
     $this->get('/traerUnaMesa/{id}', MesaController::class . ':traerUno');
 

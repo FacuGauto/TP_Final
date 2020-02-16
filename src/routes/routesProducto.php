@@ -15,13 +15,15 @@ return function (App $app) {
 
   $app->group('/producto', function () {
 
-    $this->get('/', ProductoController::class . ':traerTodos');
+    $this->get('/', ProductoController::class . ':traerTodos')->add(Middleware::class . ":ValidarToken");
 
-    $this->post('/', ProductoController::class . ':cargarUno');
+    $this->get('/{id}', ProductoController::class . ':traerUno')->add(Middleware::class . ":ValidarToken");
 
-    $this->put('/', ProductoController::class . ':modificarUno');
+    $this->post('/', ProductoController::class . ':cargarUno')->add(Middleware::class . ":ValidarToken");
 
-    $this->delete('/', ProductoController::class . ':borrarUno');
+    $this->put('/', ProductoController::class . ':modificarUno')->add(Middleware::class . ":ValidarToken");
+
+    $this->delete('/', ProductoController::class . ':borrarUno')->add(Middleware::class . ":ValidarToken");
 
   });
 

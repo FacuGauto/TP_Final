@@ -32,10 +32,11 @@ class EmpleadoController implements IApiControler
     $usuarioValido = strcasecmp($empleado[0]["usuario"],$usuario);
     $claveValida = strcasecmp($empleado[0]["clave"],crypt($clave,'st'));
 
-    if(count($empleado) == 1 && $claveValida == 0 && $claveValida == 0){
+    if(count($empleado) == 1 && $claveValida == 0 && $usuarioValido == 0){
       unset($empleado[0]['clave']);
       $token = AutentificadorJWT::CrearToken($empleado[0]);
-      $newResponse = $response->withJson($token, 200);
+      $mensaje=["token"=> $token];
+      $newResponse = $response->withJson($mensaje, 200);
     }else{
       $newResponse = $response->withJson("No se pudo iniciar sesion, error al generar el token, vuelva a intentarlo", 200);
     }
@@ -48,7 +49,7 @@ class EmpleadoController implements IApiControler
     if($empleado != null){
       $newResponse = $response->withJson($empleado, 200);
     }else{
-      $newResponse = $response->withJson("No existe el empleado", 200);
+      $newResponse = $response->withJson(["mensaje"=>"No existe el empleado"], 200);
     }
     return $newResponse;
   }
@@ -115,15 +116,15 @@ class EmpleadoController implements IApiControler
         $newResponse = $response->withJson($empleado, 200);
       }
       else if($id == null){
-        $newResponse = $response->withJson('Introduzca un id valido', 200);
+        $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
       }
       else if($id != null && $empleado == null){
-        $newResponse = $response->withJson("No hay un usuario con ese id", 200);
+        $newResponse = $response->withJson(["mensaje"=>"No hay un usuario con ese id"], 200);
       }
     }
     else
     {
-      $newResponse = $response->withJson('Introduzca un id valido', 200);
+      $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
     }
     return 	$newResponse;
   }

@@ -98,15 +98,15 @@ class MesaController implements IApiControler
         $newResponse = $response->withJson($mesa, 200);
       }
       else if($id == null){
-        $newResponse = $response->withJson('Introduzca un id valido', 200);
+        $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
       }
       else if($id != null && $mesa == null){
-        $newResponse = $response->withJson("No hay un producto con ese id", 200);
+        $newResponse = $response->withJson(["mensaje"=>"No hay una mesa con ese id"], 200);
       }
     }
     else
     {
-      $newResponse = $response->withJson('Introduzca un id valido', 200);
+      $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
     }
     return 	$newResponse;
   }
@@ -117,12 +117,12 @@ class MesaController implements IApiControler
 
       if($mesaLibre != null){
           $newResponse = $mesaLibre->codigoMesa;
-          $mesaLibre->id_estado_mesa = 1;
+          //$mesaLibre->id_estado_mesa = 1;
           $mesaLibre->save();
           $newResponse = $response->withJson($mesaLibre, 200);
           //$this->cambiarEstado($mesaLibre->codigoMesa, 1);
       }else{
-        $newResponse = $response->withJson('No hay mesas disponibles', 200);
+        $newResponse = $response->withJson(["mensaje"=>"No hay mesas disponibles"], 200);
       }
       return $newResponse;
   }

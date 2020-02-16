@@ -128,12 +128,12 @@ class Middleware
             }
             catch(Exception $e)
             {
-				$newResponse = $response->withJson("Token invalido",200);
+				$newResponse = $response->withJson(["mensaje"=>"Token invalido"],200);
             }
 		}
 		else
 		{
-			$newResponse = $response->withJson("Token no recibido",200);
+			$newResponse = $response->withJson(["mensaje"=>"Token invalido"],200);
 		}
         return $newResponse;
     }
@@ -148,13 +148,13 @@ class Middleware
                 if ($data->id_tipo_empleado === 1) {
                     $newResponse = $next($request, $response);
                 } else {
-                    $newResponse = $response->withJson("Solo se admiten socios para esta operacion", 401);
+                    $newResponse = $response->withJson(["mensaje"=>"Solo se admiten socios para esta operacion"], 401);
                 }
             } catch (Exception $e) {
-                $newResponse = $response->withJson("Fallo en la funcion", 500);
+                $newResponse = $response->withJson(["mensaje"=>"Fallo en la funcion"], 500);
             }
         } else {
-            $newResponse = $response->withJson("No se ha recibido un token. Verificar e intentar nuevamente", 500);
+            $newResponse = $response->withJson(["mensaje"=>"No se ha recibido un token. Verificar e intentar nuevamente"], 500);
         }
         return $newResponse;
     }

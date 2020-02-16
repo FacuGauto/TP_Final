@@ -82,38 +82,41 @@ class PedidoController implements IApiControler
     if(array_key_exists("id", $array_params))
     {
       $id = $array_params['id'];
-      $empleado = Empleado::find($id);
+      $pedido = Pedido::find($id);
 
-      if($id != null && $empleado != null){ 
+      if($id != null && $pedido != null){ 
             
-        if(array_key_exists("nombre", $array_params)){
-          $empleado->nombre = $array_params["nombre"];
+        if(array_key_exists("id_estado_pedido", $array_params)){
+          $pedido->id_estado_pedido = $array_params["id_estado_pedido"];
         }
-        if(array_key_exists("apellido", $array_params)){
-          $empleado->apellido = $array_params["apellido"];
+        if(array_key_exists("codigo_pedido", $array_params)){
+          $pedido->codigo_pedido = $array_params["codigo_pedido"];
         }
-        if(array_key_exists("tipo_empleado", $array_params)){
-          $empleado->id_tipo_empleado = $this->convertirAIdtipoEmpleado($tipo_empleado);
+        if(array_key_exists("id_mesa", $array_params)){
+          $pedido->id_mesa = $this->convertirAIdtipoEmpleado($id_mesa);
         }
-        if(array_key_exists("usuario", $array_params)){
-          $empleado->usuario = $array_params["usuario"];
+        if(array_key_exists("id_empleado", $array_params)){
+          $pedido->id_empleado = $array_params["id_empleado"];
         }
-        if(array_key_exists("clave", $array_params)){
-          $empleado->clave = crypt($array_params['clave'],'st');
+        if(array_key_exists("productos", $array_params)){
+          $pedido->productos = $array_params["productos"];
         }
-        $empleado->save();
-        $newResponse = $response->withJson($empleado, 200);
+        if(array_key_exists("tiempo", $array_params)){
+          $pedido->tiempo = $array_params["tiempo"];
+        }
+        $pedido->save();
+        $newResponse = $response->withJson($pedido, 200);
       }
       else if($id == null){
-        $newResponse = $response->withJson('Introduzca un id valido', 200);
+        $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
       }
-      else if($id != null && $empleado == null){
-        $newResponse = $response->withJson("No hay un usuario con ese id", 200);
+      else if($id != null && $pedido == null){
+        $newResponse = $response->withJson(["mensaje"=>"No hay un pedido con ese id"], 200);
       }
     }
     else
     {
-      $newResponse = $response->withJson('Introduzca un id valido', 200);
+      $newResponse = $response->withJson(["mensaje"=>"Introduzca un id valido"], 200);
     }
     return 	$newResponse;
   }

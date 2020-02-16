@@ -22,11 +22,14 @@ class ProductoController implements IApiControler
   }
   
   public function TraerUno($request, $response, $args) {
-    //complete el codigo
-    $arry_params = $request->getParsedBody();
-    var_dump($arry_params);
-    //$newResponse = $response->withJson("sin completar", 200);  
-    //return $newResponse;
+    $id = $args["id"];
+    $producto = Producto::find($id);
+    if($producto != null){
+      $newResponse = $response->withJson($producto, 200);
+    }else{
+      $newResponse = $response->withJson(["mensaje"=>"No existe el producto"], 200);
+    }
+    return $newResponse;
   }
   
   public function CargarUno($request, $response, $args) {
@@ -51,7 +54,7 @@ class ProductoController implements IApiControler
       $mensaje=["mensaje"=>"Se dio de baja el id " . $id];
       $newResponse = $response->withJson($mensaje,200);
     }else{
-      $mensaje=["mensaje"=>"No se encontro el usuario ingresado"];
+      $mensaje=["mensaje"=>"No se encontro el producto ingresado"];
       $newResponse = $response->withJson($mensaje,200);
     }
     return $newResponse;

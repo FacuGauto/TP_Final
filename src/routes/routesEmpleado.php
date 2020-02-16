@@ -15,17 +15,17 @@ return function (App $app) {
 
   $app->group('/empleado', function () {
 
-    $this->get('/', EmpleadoController::class . ':traerTodos');
+    $this->post('/login', EmpleadoController::class . ':login');
 
-    $this->get('/{id}', EmpleadoController::class . ':traerUno');
+    $this->get('/', EmpleadoController::class . ':traerTodos')->add(Middleware::class . ":ValidarToken");
+
+    $this->get('/{id}', EmpleadoController::class . ':traerUno')->add(Middleware::class . ":ValidarToken");
 
     $this->post('/', EmpleadoController::class . ':cargarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
     $this->put('/', EmpleadoController::class . ':modificarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
     $this->delete('/', EmpleadoController::class . ':borrarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
-
-    $this->post('/login', EmpleadoController::class . ':login');
 
   });
 
