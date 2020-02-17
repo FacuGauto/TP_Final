@@ -11,3 +11,9 @@ lacomanda2c2019gauto
 
 
 lacomanda2C2019Gauto.000webhostapp.com
+
+
+
+https://www.getpostman.com/collections/a84003d79bdd29b3bd05
+HerokuComanda -> host: https://php-utn.herokuapp.com/
+token: ""
