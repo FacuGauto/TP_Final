@@ -25,7 +25,7 @@ return function (App $app) {
 
     $this->delete('/', MesaController::class . ':borrarUno')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
 
-    $this->get('/obtenerMesaLibre', MesaController::class . ':obtenerMesaLibre')->add(Middleware::class . ":EsSocio")->add(Middleware::class . ":ValidarToken");
+    $this->get('/obtenerMesaLibre', MesaController::class . ':obtenerMesaLibre')->add(Middleware::class . ":ValidarToken");
 
 
   });
